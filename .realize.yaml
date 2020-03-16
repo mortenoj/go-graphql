@@ -30,9 +30,8 @@ schema:
         - go
       paths:
         - ../../
-      ignore:
-        paths:
-          - .git
-          - .realize
-          - .vscode
-          - vendor
+      ignore_paths:
+        - .git
+        - .realize
+        - .vscode
+        - vendor
