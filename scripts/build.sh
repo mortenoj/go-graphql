@@ -9,11 +9,6 @@ DIR="$( cd -P "$( dirname "$SOURCE" )/.." && pwd )"
 
 cd "$DIR"
 
-
-# Get the git commit
-GIT_COMMIT=$(git rev-parse HEAD)
-GIT_DIRTY=$(test -n "`git status --porcelain`" && echo "+CHANGES" || true)
-
 # Delete the old dir
 echo "==> Removing old directory..."
 rm -f bin/*
@@ -28,9 +23,6 @@ XC_OS=${XC_OS:-linux}
 if [[ "${DEV}" = true ]]; then
     XC_OS=$(go env GOOS)
     XC_ARCH=$(go env GOARCH)
-
-    # Allow LD_FLAGS to be appended during development compilations
-    #LD_FLAGS="-X main.GitCommit=${GIT_COMMIT}${GIT_DIRTY} $LD_FLAGS"
 fi
 
 # Instruct go to build statically linked binaries
