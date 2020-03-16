@@ -1,0 +1,43 @@
+settings:
+  files:
+    outputs:
+      status: false
+      path: ''
+      name: .r.outputs.log
+    logs:
+      status: false
+      path: ''
+      name: .r.logs.log
+    errors:
+      status: false
+      path: ''
+      name: .r.errors.log
+  legacy:
+    force: false
+    interval: 0s
+schema:
+  - name: app
+    path: cmd/app
+    commands:
+      install:
+        status: false
+      run:
+        status: true
+    watcher:
+      extensions:
+        - go
+      paths:
+        - ../../
+      ignore:
+        paths:
+          - .git
+          - .realize
+          - .vscode
+          - vendor
+  commands:
+    install:
+        status: true
+        method: go build -o build/gql-server
+    run:
+        status: true
+        method: build/gql-server
