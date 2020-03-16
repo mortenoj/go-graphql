@@ -1,6 +1,6 @@
 # Go GraphQL Template
 
-> GraphQL API written in Golang for learning purposes
+> GraphQL API template written in Golang for learning purposes
 
 This is an example project showcasing how you can setup GraphQL in Golang using [Golang standard project structure](https://github.com/golang-standards/project-layout) and tools like [GQLGen](https://github.com/99designs/gqlgen), [Gin](https://github.com/gin-gonic/gin), [Realize](https://github.com/oxequa/realize), and [GORM](https://gorm.io/).
 
