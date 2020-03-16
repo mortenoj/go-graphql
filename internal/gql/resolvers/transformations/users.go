@@ -5,8 +5,8 @@ import (
 	"errors"
 
 	"github.com/gofrs/uuid"
-	gql "github.com/mortenoj/reko-ring-backend/internal/gql/models"
-	dbm "github.com/mortenoj/reko-ring-backend/internal/orm/models"
+	gql "github.com/mortenoj/go-graphql-template/internal/gql/models"
+	dbm "github.com/mortenoj/go-graphql-template/internal/orm/models"
 )
 
 // DBUserToGQLUser transforms [user] db input to gql type

@@ -2,8 +2,8 @@
 package orm
 
 import (
-	"github.com/mortenoj/reko-ring-backend/internal/config"
-	"github.com/mortenoj/reko-ring-backend/internal/orm/migrations"
+	"github.com/mortenoj/go-graphql-template/internal/config"
+	"github.com/mortenoj/go-graphql-template/internal/orm/migrations"
 	"github.com/sirupsen/logrus"
 
 	// Dialect also imports postgres driver

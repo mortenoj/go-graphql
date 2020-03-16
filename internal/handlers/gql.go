@@ -5,9 +5,9 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mortenoj/reko-ring-backend/internal/gql"
-	"github.com/mortenoj/reko-ring-backend/internal/gql/resolvers"
-	"github.com/mortenoj/reko-ring-backend/internal/orm"
+	"github.com/mortenoj/go-graphql-template/internal/gql"
+	"github.com/mortenoj/go-graphql-template/internal/gql/resolvers"
+	"github.com/mortenoj/go-graphql-template/internal/orm"
 )
 
 // GraphqlHandler defines the GQLGen GraphQL server handler
@@ -19,7 +19,7 @@ func GraphqlHandler(orm *orm.ORM) gin.HandlerFunc {
 		},
 	}
 
-	h := handler.New(gql.NewExecutableSchema(c))
+	h := handler.NewDefaultServer(gql.NewExecutableSchema(c))
 
 	return func(c *gin.Context) {
 		h.ServeHTTP(c.Writer, c.Request)

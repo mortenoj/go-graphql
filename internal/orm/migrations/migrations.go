@@ -4,8 +4,8 @@ package migrations
 import (
 	"fmt"
 
-	"github.com/mortenoj/reko-ring-backend/internal/gql/models"
-	"github.com/mortenoj/reko-ring-backend/internal/orm/migrations/jobs"
+	"github.com/mortenoj/go-graphql-template/internal/gql/models"
+	"github.com/mortenoj/go-graphql-template/internal/orm/migrations/jobs"
 	"github.com/sirupsen/logrus"
 
 	"github.com/jinzhu/gorm"

@@ -1,8 +1,8 @@
 package main
 
 import (
-	internal "github.com/mortenoj/reko-ring-backend/internal"
-	"github.com/mortenoj/reko-ring-backend/internal/config"
+	internal "github.com/mortenoj/go-graphql-template/internal"
+	"github.com/mortenoj/go-graphql-template/internal/config"
 )
 
 func main() {

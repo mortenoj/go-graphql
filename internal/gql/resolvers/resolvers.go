@@ -2,8 +2,8 @@
 package resolvers
 
 import (
-	"github.com/mortenoj/reko-ring-backend/internal/gql"
-	"github.com/mortenoj/reko-ring-backend/internal/orm"
+	"github.com/mortenoj/go-graphql-template/internal/gql"
+	"github.com/mortenoj/go-graphql-template/internal/orm"
 )
 
 // Resolver is a modifable struct that can be used to pass on properties used

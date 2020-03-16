@@ -3,7 +3,7 @@ package jobs
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/mortenoj/reko-ring-backend/internal/orm/models"
+	"github.com/mortenoj/go-graphql-template/internal/orm/models"
 	"gopkg.in/gormigrate.v1"
 )
 

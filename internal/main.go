@@ -2,10 +2,10 @@
 package internal
 
 import (
-	"github.com/mortenoj/reko-ring-backend/internal/config"
-	"github.com/mortenoj/reko-ring-backend/internal/orm"
-	"github.com/mortenoj/reko-ring-backend/internal/server"
-	"github.com/mortenoj/reko-ring-backend/pkg/utils/errutils"
+	"github.com/mortenoj/go-graphql-template/internal/config"
+	"github.com/mortenoj/go-graphql-template/internal/orm"
+	"github.com/mortenoj/go-graphql-template/internal/server"
+	"github.com/mortenoj/go-graphql-template/pkg/utils/errutils"
 )
 
 // Start the application

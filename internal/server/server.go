@@ -3,10 +3,10 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mortenoj/reko-ring-backend/internal/config"
-	"github.com/mortenoj/reko-ring-backend/internal/handlers"
-	"github.com/mortenoj/reko-ring-backend/internal/orm"
-	"github.com/mortenoj/reko-ring-backend/pkg/utils/errutils"
+	"github.com/mortenoj/go-graphql-template/internal/config"
+	"github.com/mortenoj/go-graphql-template/internal/handlers"
+	"github.com/mortenoj/go-graphql-template/internal/orm"
+	"github.com/mortenoj/go-graphql-template/pkg/utils/errutils"
 	"github.com/sirupsen/logrus"
 )
 

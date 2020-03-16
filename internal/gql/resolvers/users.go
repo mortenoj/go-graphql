@@ -3,9 +3,9 @@ package resolvers
 import (
 	"context"
 
-	"github.com/mortenoj/reko-ring-backend/internal/gql/models"
-	tf "github.com/mortenoj/reko-ring-backend/internal/gql/resolvers/transformations"
-	dbm "github.com/mortenoj/reko-ring-backend/internal/orm/models"
+	"github.com/mortenoj/go-graphql-template/internal/gql/models"
+	tf "github.com/mortenoj/go-graphql-template/internal/gql/resolvers/transformations"
+	dbm "github.com/mortenoj/go-graphql-template/internal/orm/models"
 	"github.com/sirupsen/logrus"
 )
 

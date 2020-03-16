@@ -13,7 +13,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/mortenoj/reko-ring-backend/internal/gql/models"
+	"github.com/mortenoj/go-graphql-template/internal/gql/models"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -301,7 +301,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "internal/gql/schemas/schema.graphql", Input: `scalar Time
+	&ast.Source{Name: "internal/gql/schemas/schema.graphql", Input: `scalar Time
 # Types
 type User {
   id: ID!
@@ -360,7 +360,7 @@ func (ec *executionContext) field_Mutation_createUser_args(ctx context.Context, 
 	args := map[string]interface{}{}
 	var arg0 models.UserInput
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNUserInput2githubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUserInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUserInput2githubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUserInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -396,7 +396,7 @@ func (ec *executionContext) field_Mutation_updateUser_args(ctx context.Context, 
 	args["id"] = arg0
 	var arg1 models.UserInput
 	if tmp, ok := rawArgs["input"]; ok {
-		arg1, err = ec.unmarshalNUserInput2githubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUserInput(ctx, tmp)
+		arg1, err = ec.unmarshalNUserInput2githubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUserInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -507,7 +507,7 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -548,7 +548,7 @@ func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field grap
 	}
 	res := resTmp.(*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -630,7 +630,7 @@ func (ec *executionContext) _Query_users(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.(*models.Users)
 	fc.Result = res
-	return ec.marshalNUsers2ᚖgithubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUsers(ctx, field.Selections, res)
+	return ec.marshalNUsers2ᚖgithubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUsers(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1114,7 +1114,7 @@ func (ec *executionContext) _Users_list(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.([]*models.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUserᚄ(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Directive_name(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
@@ -2714,11 +2714,11 @@ func (ec *executionContext) marshalNTime2timeᚐTime(ctx context.Context, sel as
 	return res
 }
 
-func (ec *executionContext) marshalNUser2githubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v models.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2githubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v models.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*models.User) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2742,7 +2742,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋmortenojᚋrekoᚑ
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2755,7 +2755,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋmortenojᚋrekoᚑ
 	return ret
 }
 
-func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v *models.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUser(ctx context.Context, sel ast.SelectionSet, v *models.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2765,15 +2765,15 @@ func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋmortenojᚋrekoᚑrin
 	return ec._User(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNUserInput2githubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUserInput(ctx context.Context, v interface{}) (models.UserInput, error) {
+func (ec *executionContext) unmarshalNUserInput2githubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUserInput(ctx context.Context, v interface{}) (models.UserInput, error) {
 	return ec.unmarshalInputUserInput(ctx, v)
 }
 
-func (ec *executionContext) marshalNUsers2githubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUsers(ctx context.Context, sel ast.SelectionSet, v models.Users) graphql.Marshaler {
+func (ec *executionContext) marshalNUsers2githubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUsers(ctx context.Context, sel ast.SelectionSet, v models.Users) graphql.Marshaler {
 	return ec._Users(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUsers2ᚖgithubᚗcomᚋmortenojᚋrekoᚑringᚑbackendᚋinternalᚋgqlᚋmodelsᚐUsers(ctx context.Context, sel ast.SelectionSet, v *models.Users) graphql.Marshaler {
+func (ec *executionContext) marshalNUsers2ᚖgithubᚗcomᚋmortenojᚋgoᚑgraphqlᚑtemplateᚋinternalᚋgqlᚋmodelsᚐUsers(ctx context.Context, sel ast.SelectionSet, v *models.Users) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")

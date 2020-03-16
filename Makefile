@@ -1,8 +1,8 @@
 VERSION?="0.0.1"
 TEST?=./...
-GOFMT_FILES?=$$(find . -name '*.go' | grep -v vendor)
-WEBSITE_REPO=github.com/MaritimeOptima/tide-service
-DOCKER_REPO="maritimeoptima.azurecr.io/services/tide-service"
+GOFMT_FILES?=$$(find . -name '*.go')
+WEBSITE_REPO=github.com/mortenoj/go-graphql-template
+DOCKER_REPO=""
 NAME="tide-service"
 
 default: test
