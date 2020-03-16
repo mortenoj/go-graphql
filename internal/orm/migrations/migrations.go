@@ -4,8 +4,9 @@ package migrations
 import (
 	"fmt"
 
-	"github.com/mortenoj/go-graphql-template/internal/gql/models"
 	"github.com/mortenoj/go-graphql-template/internal/orm/migrations/jobs"
+	"github.com/mortenoj/go-graphql-template/internal/orm/models"
+	"github.com/mortenoj/go-graphql-template/pkg/utils/consts"
 	"github.com/sirupsen/logrus"
 
 	"github.com/jinzhu/gorm"
@@ -18,15 +19,16 @@ const logPrefix string = "[migrations] "
 func ServiceAutoMigrations(db *gorm.DB) error {
 	var err error
 
+	// Initialize the migration empty so InitSchema runs always first on creation
 	m := gormigrate.New(db, gormigrate.DefaultOptions, nil)
 	m.InitSchema(func(db *gorm.DB) error {
 		logrus.Info("[Migration.InitSchema] Initializing database schema")
 
 		if db.Dialect().GetName() == "postgres" {
-			// Let's create the UUID extension, the user has to have superuser permission for now
-			db.Exec("create extension \"uuid-ossp\";")
+			db.Exec("CREATE EXTENSION IF NOT EXISTS\"uuid-ossp\";")
 		}
-		if err := updateMigrations(db); err != nil {
+
+		if err := updateMigration(db); err != nil {
 			return fmt.Errorf("[Migration.InitSchema]: %v", err)
 		}
 
@@ -35,30 +37,82 @@ func ServiceAutoMigrations(db *gorm.DB) error {
 
 	err = m.Migrate()
 	if err != nil {
-		logrus.Error(logPrefix, "error running init migrations")
+		logrus.Error(logPrefix, "error running initial migrations")
 		return err
 	}
 
-	if err := updateMigrations(db); err != nil {
-		logrus.Error(logPrefix, "error updating migrations")
+	if err := updateMigration(db); err != nil {
 		return err
 	}
 
+	// Keep a list of migrations here
 	m = gormigrate.New(db, gormigrate.DefaultOptions, []*gormigrate.Migration{
 		jobs.SeedUsers(),
+		jobs.SeedRBAC(),
 	})
 
 	err = m.Migrate()
 	if err != nil {
-		logrus.Error(logPrefix, "error running updated migrations")
+		logrus.Error(logPrefix, "error running initial migrations")
 		return err
 	}
 
 	return nil
 }
 
-func updateMigrations(db *gorm.DB) error {
-	return db.AutoMigrate(
+func updateMigration(db *gorm.DB) (err error) {
+	err = db.AutoMigrate(
+		&models.Role{},
+		&models.Permission{},
 		&models.User{},
+		&models.UserProfile{},
+		&models.UserAPIKey{},
 	).Error
+	if err != nil {
+		return err
+	}
+
+	return addIndexes(db)
+}
+
+func addIndexes(db *gorm.DB) (err error) {
+	// Entity names
+	//db.NewScope(&models.User{}).GetModelStruct().TableName(db)
+	usersTableName := consts.Tablenames().Users
+	rolesTableName := consts.Tablenames().Roles
+	permissionsTableName := consts.Tablenames().Permissions
+
+	// FKs
+	if err := db.Model(&models.UserProfile{}).
+		AddForeignKey("user_id", usersTableName+"(id)", "RESTRICT", "RESTRICT").Error; err != nil {
+		return err
+	}
+
+	if err := db.Model(&models.UserAPIKey{}).
+		AddForeignKey("user_id", usersTableName+"(id)", "RESTRICT", "RESTRICT").Error; err != nil {
+		return err
+	}
+
+	if err := db.Model(&models.UserRole{}).
+		AddForeignKey("user_id", usersTableName+"(id)", "CASCADE", "CASCADE").Error; err != nil {
+		return err
+	}
+
+	if err := db.Model(&models.UserRole{}).
+		AddForeignKey("role_id", rolesTableName+"(id)", "CASCADE", "CASCADE").Error; err != nil {
+		return err
+	}
+
+	if err := db.Model(&models.UserPermission{}).
+		AddForeignKey("user_id", usersTableName+"(id)", "CASCADE", "CASCADE").Error; err != nil {
+		return err
+	}
+
+	if err := db.Model(&models.UserPermission{}).
+		AddForeignKey("permission_id", permissionsTableName+"(id)", "CASCADE", "CASCADE").Error; err != nil {
+		return err
+	}
+	// Indexes
+	// None needed so far
+	return nil
 }

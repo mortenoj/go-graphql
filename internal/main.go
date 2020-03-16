@@ -13,5 +13,5 @@ func Start(cfg *config.Config) {
 	orm, err := orm.Factory(cfg)
 	errutils.Must(err)
 
-	server.Run(cfg, orm)
+	errutils.Must(server.Run(cfg, orm))
 }

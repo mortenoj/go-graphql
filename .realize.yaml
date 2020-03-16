@@ -20,7 +20,7 @@ schema:
     path: ./cmd/app
     commands:
         install:
-            method: make dev -C ../../
+            method: make quickdev -C ../../
             status: true
         run:
             method: bin/app
