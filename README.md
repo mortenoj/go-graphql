@@ -2,7 +2,7 @@
 
 > GraphQL API written in Golang for learning purposes
 
-This is an example project showcasing how you can setup GraphQL in Golang using [standard Go project structure](https://github.com/golang-standards/project-layout) and tools like [GQLGen](https://github.com/99designs/gqlgen) and [GORM](https://gorm.io/).
+This is an example project showcasing how you can setup GraphQL in Golang using [Golang standard project structure](https://github.com/golang-standards/project-layout) and tools like [GQLGen](https://github.com/99designs/gqlgen) and [GORM](https://gorm.io/).
 
 ## Config
 
