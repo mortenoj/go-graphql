@@ -2,7 +2,7 @@
 
 > GraphQL API written in Golang for learning purposes
 
-This is an example project showcasing how you can setup GraphQL in Golang using [Golang standard project structure](https://github.com/golang-standards/project-layout) and tools like [GQLGen](https://github.com/99designs/gqlgen), [Gin](https://github.com/gin-gonic/gin), and [GORM](https://gorm.io/).
+This is an example project showcasing how you can setup GraphQL in Golang using [Golang standard project structure](https://github.com/golang-standards/project-layout) and tools like [GQLGen](https://github.com/99designs/gqlgen), [Gin](https://github.com/gin-gonic/gin), [Realize](https://github.com/oxequa/realize), and [GORM](https://gorm.io/).
 
 ## Config
 
@@ -30,7 +30,7 @@ GORM_LOGMODE            # {bool}    {default "true"}    Enable GORM log mode
 GORM_AUTOMIGRATE        # {bool}    {default "true"}    Automatically run migrations on run
 ```
 
-Set these variables in a `.env` file and they will be exported when running `make run`. (See `scripts/dev.sh`)
+Set these variables in a `.env` file and they will be exported when running `make run-dev`. (See `scripts/run.sh`)
 
 ## Building
 
@@ -48,4 +48,4 @@ If your issue is regarding fetching private repos such as `go-utils` try to run 
 
 ## Running
 
-If you have installed dependencies and are able to build, you can run the program by running `make run`.
+If you have installed dependencies and are able to build, you can run the program by running `make run-dev`.
