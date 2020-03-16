@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Get the parent directory of where this script is.
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
@@ -22,14 +24,8 @@ mkdir -p bin/
 XC_ARCH=${XC_ARCH:-"amd64"}
 XC_OS=${XC_OS:-linux}
 
-if ! which gox > /dev/null; then
-    echo "==> Installing gox..."
-    go get -u github.com/mitchellh/gox
-fi
-
-
 # If its dev mode, only build for ourself
-if [[ -n "${MO_DEV}" ]]; then
+if [[ "${DEV}" = true ]]; then
     XC_OS=$(go env GOOS)
     XC_ARCH=$(go env GOARCH)
 
@@ -37,37 +33,31 @@ if [[ -n "${MO_DEV}" ]]; then
     #LD_FLAGS="-X main.GitCommit=${GIT_COMMIT}${GIT_DIRTY} $LD_FLAGS"
 fi
 
-
-# Instruct gox to build statically linked binaries
+# Instruct go to build statically linked binaries
 export CGO_ENABLED=0
 
-# In release mode we don't want debug information in the binary
-if [[ -n "${MO_RELEASE}" ]]; then
-    LD_FLAGS="-s -w"
-fi
+# Avoid https://github.com/golang/go/issues/35164 when MaritimeOptima is used with different casing.
+export GOSUMDB=off
 
 # Build!
 echo "==> Building..."
 echo "===> Mode $SSW_DEV"
 echo "===> Target $XC_OS $XC_ARCH"
-echo "===> LDFlags $LD_FLAGS"
 echo "===> XOSARCH $XC_EXCLUDE_OSARCH"
 
 #-output "bin/${PWD##*/}" \
 
 folders=$(find ./cmd -type d -maxdepth 1 -mindepth 1 -not -name cmd)
 echo $folders
+basedir=$PWD
 for folder in $folders
 do
     appname=$(basename $folder)
     echo $folder
     echo $appname
-    gox \
-    -ldflags "${LD_FLAGS}" \
-    -os="${XC_OS}" \
-    -output "bin/${appname}"\
-    -arch="${XC_ARCH}" \
-    ${folder}
+    cd $folder
+    GOOS=${XC_OS} GOARCH=${XC_ARCH} go build -o "${basedir}/bin/${appname}"
+    cd -
 done
 
 # Done!

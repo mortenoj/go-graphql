@@ -3,11 +3,11 @@ TEST?=./...
 GOFMT_FILES?=$$(find . -name '*.go')
 WEBSITE_REPO=github.com/mortenoj/go-graphql-template
 DOCKER_REPO=""
-NAME="tide-service"
+NAME="go-graphql-template"
 
 default: test
 
-test: fmtcheck
+test: fmt
 	@TESTARGS=$(TESTARGS) sh -c "'$(CURDIR)/scripts/test.sh'"
 	#go list $(TEST) | xargs -t -n4 go test $(TESTARGS) -timeout=2m -parallel=4
 
@@ -17,8 +17,8 @@ tools:
 	GO111MODULE=off go get -u github.com/golang/protobuf/protoc-gen-go
 
 
-bin: fmtcheck
-	@MO_RELEASE=1 sh -c "'$(CURDIR)/scripts/build.sh'"
+bin: fmt
+	@DEV=false sh -c "'$(CURDIR)/scripts/build.sh'"
 
 cover:
 	@go tool cover 2>/dev/null; if [ $$? -eq 3 ]; then \
@@ -27,24 +27,21 @@ cover:
 	@TESTARGS=$(TESTARGS) COVER=1 sh -c "'$(CURDIR)/scripts/test.sh'"
 
 fmt:
-	gofmt -w $(GOFMT_FILES)
+	@golangci-lint run --enable-all ./...
 
-fmtcheck:
-	@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
-
-gqlgen:
-	@sh -c "'$(CURDIR)/scripts/gqlgen.sh'"
-
-dev: fmtcheck
-	@MO_DEV=1 sh -c "'$(CURDIR)/scripts/build.sh'"
+dev: fmt
+	@DEV=true sh -c "'$(CURDIR)/scripts/build.sh'"
 
 quickdev:
-	@MO_DEV=1 sh -c "'$(CURDIR)/scripts/build.sh'"
+	@DEV=true sh -c "'$(CURDIR)/scripts/build.sh'"
 
-run: quickdev
-	@sh -c "'$(CURDIR)/scripts/dev.sh'"
+run: dev
+	@DEV=false sh -c "'$(CURDIR)/scripts/run.sh'"
 
-build: fmtcheck bin gqlgen
+run-dev: quickdev
+	@DEV=true sh -c "'$(CURDIR)/scripts/run.sh'"
+
+build: fmt bin
 	@docker build -t $(NAME) . -f build/package/Dockerfile
 	@docker tag $(NAME):latest $(NAME):$(VERSION)
 
@@ -59,6 +56,7 @@ release: build
 taskrunner: quickdev
 	@APP=taskrunner sh -c "'$(CURDIR)/scripts/dev.sh' $(PORT)"
 
+
 .NOTPARALLEL:
 
-.PHONY: bin cover default fmt fmtcheck test dev quickdev tools bin run build ecr release lists taskrunner
+.PHONY: bin cover default fmt fmtcheck test dev tools bin run build ecr release lists taskrunner

@@ -16,13 +16,15 @@ settings:
     force: false
     interval: 0s
 schema:
-  - name: app
-    path: cmd/app
+  - name: go-graphql-template
+    path: ./cmd/app
     commands:
-      install:
-        status: false
-      run:
-        status: true
+        install:
+            method: make dev -C ../../
+            status: true
+        run:
+            method: bin/app
+            status: true
     watcher:
       extensions:
         - go
@@ -34,10 +36,3 @@ schema:
           - .realize
           - .vscode
           - vendor
-  commands:
-    install:
-        status: true
-        method: go build -o build/gql-server
-    run:
-        status: true
-        method: build/gql-server
