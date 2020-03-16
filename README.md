@@ -1,4 +1,4 @@
-# Go-GraphQL API
+# Go GraphQL Template
 
 > GraphQL API written in Golang for learning purposes
 
